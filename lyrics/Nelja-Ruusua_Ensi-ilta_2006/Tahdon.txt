@@ -1,0 +1,129 @@
+Seurakunta saapuu paikoilleen
+Se valmistautuu suureen lupaukseen
+Taipaleet kahden ihmisen
+Yhteiseksi suunnataan
+Ja elämä on kuin elokuvaa
+Prinsessa prinssin lopulta saa
+Tiara ja kangasta valkeaa
+Suru ja murhe unohtuu
+Rakkaus on suurempi kuin muu
+Kaikki tietävät sen ja uskovat
+Tahdon tahdon
+Valokuva mustavalkoinen
+Tuo taasen mieleen suuren päivän sen
+Yhdessä näin kun vanhetaan
+Ei rakkaus sammu milloinkaan
+Ja elämä on kuin elokuvaa
+Prinsessa prinssin lopulta saa
+Tiara ja kangasta valkeaa
+Suru ja murhe unohtuu
+Rakkaus on suurempi kuin muu
+Kaikki tietävät sen ja uskovat
+Tahdon tahdon
+
+Ja elämä on kuin elokuvaa
+Prinsessa prinssin lopulta saa
+Tiara ja kangasta valkeaa
+Suru ja murhe unohtuu
+Rakkaus on suurempi kuin muu
+Kaikki tietävät sen ja uskovat
+Tahdon tahdon
+Dialogit:
+"Tahdon" -singleversion dialogi on elokuvasta Kesä Mustikkamaalla:
+(Esko Palin productions 2006): Käsikirjoitus Vieno Huttunen
+Ohjaus Pekka S. Karma. Päärooleissa Mikaela Railo sekä Tapio Liinoja
+Albumiversiolla on mukana dialogi myös elokuvasta Ystäväni Bobby:
+(Olli Kujala Entertainment 2007): Käsikirjoitus Pentti Hilkuri
+Ohjaus Kaisu Hakkarainen. PäärooleissaLotta Lehtikari, Tapio Liinoja sekä Manne Railo
+Dialogi hiekkarannalla
+Kohtaus 12 elokuvasta Kesä Mustikkamaalla
+Tytär ja isä rannalla, ympärillä paljon muita ihmisiä, auringonottajia jne
+Tytär:
+- Miksen mä saa miksen?
+Isä:
+- No kun se on sulle liian syvää
+Tytär:
+- Eikä oo
+Isä:
+- Sitä paitsi näkki voi viedä sut
+Tytär:
+- Mikä se on?
+Isä:
+- Se on semmonen ku vie pikkutyttöjä rannasta ulapalle, tarttuu jalkaan ja...
+Tytär:
+- Onks se tappanu lapsia?
+Isä:
+- On on... tai no, sen tähden ei veteen ainakaan saa yksin mennä
+Tytär:
+- Ei se oo oikee
+Isä:
+- Tavallaan ei
+Tytär:
+- Sä valehtelit
+Isä:
+Enhän, en mä...
+Tytär:
+Valehtelit!
+Isä:
+- Shh... ollaan vähän hiljempaa...
+Tytär:
+- Mun isä on valehtelija, valehtelija...
+Isä:
+- Eeh... heh... eeh...
+Dialogi sakastissa
+Kohtaus 7 elokuvasta Ystäväni Bobby
+Morsian ja sulhanen katselevat ovenraosta häävieraita
+Morsian:
+- Kato, Sutinen meni parvelle
+Sulhanen:
+- Onks toi sun äitis?
+Morsian:
+- Ei, se on mun isoäiti. Oothan sä mun äidin nähny?
+Sulhanen:
+- En oo
+Morsian:
+- Ai nii, et ookkaa...
+Sulhanen:
+- Nii, mis mä oisin voinu...
+Morsian:
+- Et missään
+Sulhanen:
+- Mä en tunne ketään ku Bobby ei tullu
+Morsian:
+- Onneks ei se tullu, se on seko
+Sulhanen:
+- Joo, täysi
+Morsian:
+- Mun täytyy nyt mennä
+Sulhanen:
+- Täh?
+Morsian:
+- Kiertää etukautta, sä tuut täältä yksin
+Sulhanen:
+- Mitä?
+Morsian:
+- Kato, Sutinen näytti sormella urkuja
+Sulhanen:
+- Entä sormus?
+Morsian:
+- Voi vittu voi vittu
+Sulhanen:
+- Mitä mitä?
+Morsian:
+- Bobby tuli
+Sulhanen:
+- Se tulee tänne!
+Morsian:
+- Mun huntu jäi saranaan...
+Sulhanen:
+- Bobby, sä et voi tulla tänne
+Morsian:
+- Ei kasvoihin...
+Bobby:
+- Jatta on mun!
+Sulhanen:
+- Ai saat...
+Morsian:
+- Nyt pitäis mennä
+Sulhanen:
+- Okei okei
