@@ -1,0 +1,402 @@
+jQuery(function($) {
+  var body = $('body')
+  var win = $(window);
+  var containerWidth = $('.container').width();
+  var swiper = new Swiper('.swiper-container', {
+    spaceBetween: 20,
+    slidesPerView: 'auto',
+    simulateTouch: false,
+    slidesOffsetBefore: (body.width() - containerWidth) / 2,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  });
+  var header = $('.nav-header-wrapper');
+  if (header.length > 0) {
+    var topOffset = header.offset().top;
+    win.scroll(function() {
+      var scrollTop = win.scrollTop();
+      if (body.width() >= 911) {
+        if (scrollTop >= topOffset) {
+          body.addClass('fixed-header');
+        } else {
+          body.removeClass('fixed-header');
+        }
+      }
+    }).trigger('scroll');
+  }
+  win.scroll(function() {
+    var scrollTop = win.scrollTop();
+    if (scrollTop > 0) {
+      body.addClass('fixed-mobile-nav');
+    } else {
+      body.removeClass('fixed-mobile-nav');
+    }
+  }).trigger('scroll');
+  $('.pie-graph').each(function(i, el) {
+    var chartEl = $(el);
+    var canvas = $('<canvas>');
+    canvas.appendTo(chartEl);
+    canvas.css({
+      width: 300,
+      height: 300
+    });
+    var ctx = canvas[0].getContext('2d');
+    var colors = [
+      ['#EFFDEC', '#bbfcad'],
+      ['#F0ECFD', '#BEABFA'],
+      ['#FDECF7', '#F7B2DF'],
+      ['#ECEEFD', '#B5BFFD'],
+      ['#FDFBEC', '#F8F0AE'],
+      ['#FDEFEC', '#FBC1B7'],
+      ['#6d81f9', '#6d81f9']
+    ];
+    var gradients = [];
+    for (var x = 0; x < colors.length; x++) {
+      var gradient = ctx.createLinearGradient(150, 0, 150, 300);
+      gradient.addColorStop(0, colors[x][0]);
+      gradient.addColorStop(1, colors[x][1]);
+      gradients[x] = gradient;
+    }
+
+    var data = chartEl.data('values').split(',');
+    var chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        datasets: [{
+					data: data,
+					backgroundColor: gradients
+				}]
+      },
+      options: {
+        responsive: true,
+        events: [],
+        tooltips: {
+          enabled: false
+        }
+      }
+    });
+  });
+
+  $('.line-graph').each(function(i, el) {
+    var chartEl = $(el);
+    var canvas = $('<canvas>');
+    canvas.appendTo(chartEl);
+    canvas.css({
+      width: 880,
+      height: 360
+    });
+    var ctx = canvas[0].getContext('2d');
+    var gradient1 = ctx.createLinearGradient(0, 0, 800, 400);
+    gradient1.addColorStop(0, '#EFFDEC');
+    gradient1.addColorStop(1, '#BAFCAB');
+
+    var gradient2 = ctx.createLinearGradient(0, 0, 800, 400);
+    gradient2.addColorStop(0, '#F0ECFD');
+    gradient2.addColorStop(1, '#BEABFA');
+    var config = {
+  		type: 'line',
+  		data: {
+  			labels: chartEl.data('labels').split(','),
+        datasets: [{
+  				label: 'Fyysinen',
+  				backgroundColor: gradient2,
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1,
+          borderColor: '#fff',
+          lineTension: 0,
+  				data: chartEl.data('physical').split(',')
+  			},{
+  				label: 'Digitaalinen',
+  				backgroundColor: gradient1,
+          fill: true,
+          pointRadius: 0,
+          borderWidth: 1,
+          borderColor: '#fff',
+          lineTension: 0,
+  				data: chartEl.data('digital').split(',')
+  			}]
+      },
+      options: {
+  			responsive: true,
+        legend: {display: false},
+        events: [],
+        tooltips: {
+          enabled: false
+        },
+        scales: {
+  				xAxes: [{
+  					gridLines: {display: false}
+  				}],
+  				yAxes: [{
+  					gridLines: {display: false},
+            stacked: true
+  				}]
+  			}
+      }
+    };
+
+    Chart.defaults.global.defaultFontColor = '#000';
+    Chart.defaults.global.defaultFontStyle = 'bold';
+    Chart.defaults.global.defaultFontSize = 14;
+    Chart.defaults.global.defaultFontFamily = 'Noto Sans';
+    new Chart(ctx, config);
+  });
+
+  $('.selector-toggle').click(function(e) {
+    var link = $(this);
+    if (link.hasClass('close')) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    link.next('.selector').toggleClass('active');
+    link.toggleClass('active');
+  });
+  body.click(function(e) {
+    e.stopPropagation();
+    var el = $(e.target);
+    if (el.hasClass('selector') || el.parents('.selector').length > 0) {
+      return;
+    }
+    $('.selector-toggle.active').removeClass('active');
+    $('.selector.active').removeClass('active');
+  });
+  var form = $('.newsletter-form');
+  form.submit(function(e) {
+    e.preventDefault();
+    var email = form.find('.email').val();
+    if (email != '') {
+      form.find('.form-error').addClass('hide');
+      form.find('.form-ok').addClass('hide');
+      form.find('.form-sending').removeClass('hide');
+      $.ajax({
+        url: form.attr('action'),
+        method: 'POST',
+        data: {
+          email: email,
+          action: 'newsletter_request'
+        }
+      }).done(function(data) {
+        form.find('.form-sending').addClass('hide');
+        if (data.ok) {
+          form.find('.email').val('');
+          form.find('.form-ok').removeClass('hide');
+          setTimeout(function() {
+            form.find('.form-ok').addClass('hide');
+          }, 10000)
+        }
+        if (data.error) {
+          form.find('.form-error').removeClass('hide');
+        }
+      });
+    }
+  });
+  var selectYear = $('.select-year');
+  selectYear.on('change', function() {
+    var type = selectYear.data('type');
+    jQuery.ajax({
+      url: '/wp-admin/admin-ajax.php',
+      data: {
+        action: 'week_request',
+        type: type,
+        year: selectYear.val()
+      }
+    }).done(function(data) {
+      var parent = $('.selector-links');
+      parent.empty();
+      $.each(data, function(index, item) {
+        var a = $('<a>')
+        a.addClass('year-selector-link');
+        a.attr('href', item.url),
+        a.text(item.week);
+        a.appendTo(parent);
+      })
+    });
+  });
+  $('.main-nav-toggle').click(function(e) {
+    e.preventDefault();
+    body.toggleClass('mobile-nav');
+  });
+  $('.toggle-menu-btn').click(function(e) {
+    e.preventDefault();
+    $(this).toggleClass('active');
+  });
+  $('.main-nav li.active .toggle-menu-btn').addClass('active');
+  $('.nav-categories-toggle').click(function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    $(this).toggleClass('active');
+  });
+  body.click(function(e) {
+    e.stopPropagation();
+    var el = $(e.target);
+    if (el.hasClass('nav-categories') || el.parents('.nav-categories').length > 0) {
+      return;
+    }
+    $('.nav-categories-toggle.active').removeClass('active');
+  });
+
+  // Gold and platinum form
+  var selection = "single";
+  var valid = false;
+
+  $(function() {
+    $(".submit-button").click(submitGoldForm);
+    $(".streams").on('input', valuesChanged);
+    $(".downloads").on('input', valuesChanged);
+    $(".physical").on('input', valuesChanged);
+    $(".product-downloads").on('input', valuesChanged);
+
+    $(".record-type-single").click(showSingle);
+    $(".record-type-album").click(showAlbum);
+  });
+
+  function showSingle() {
+    $(".single-info").removeClass("hidden");
+    $(".album-info").addClass("hidden");
+    $(".label-single").removeClass("hidden");
+    $(".label-album").addClass("hidden");
+    $(".downloads-container").removeClass("hidden");
+    $(".product-downloads-container").addClass("hidden");
+    selection = "single";
+    valuesChanged();
+  }
+
+  function showAlbum() {
+    $(".single-info").addClass("hidden");
+    $(".album-info").removeClass("hidden");
+    $(".label-single").addClass("hidden");
+    $(".label-album").removeClass("hidden");
+    $(".downloads-container").addClass("hidden");
+    $(".product-downloads-container").removeClass("hidden");
+    selection = "album";
+    valuesChanged();
+  }
+
+  function valuesChanged(event) {
+    var streams = parseInt($(".streams").val());
+    var downloads = parseInt($(".downloads").val());
+    var physical = parseInt($(".physical").val());
+    var productDownloads = parseInt($(".product-downloads").val());
+
+    if(isNaN(streams)) streams = 0;
+    if(isNaN(downloads)) downloads = 0;
+    if(isNaN(physical)) physical = 0;
+    if(isNaN(productDownloads)) productDownloads = 0;
+
+    if(selection == "single") {
+      sum = Math.round(streams + (100 * downloads) + (100 * physical));
+      $(".total-count").html(sum + " striimiä");
+
+      if(sum >= 4000000) {
+        valid = true;
+        $(".record-type").html("(platinasingle)");
+      } else if(sum >= 2000000) {
+        valid = true;
+        $(".record-type").html("(kultasingle)");
+      } else {
+        valid = false;
+        $(".record-type").html("");
+      }
+
+      if(valid) {
+        $(".submit-button").css({opacity: 1, pointerEvents: 'all'});
+      } else {
+        $(".submit-button").css({opacity: 0.3, pointerEvents: 'none'});
+      }
+    } else {
+      /*
+      1. Eka muuta track downloadit striimeiksi eli esim. 497 x 100 = 49700 Striimiä
+      2. Sitten laske yhteen kokonaisstriimimäärän (joka toivottavasti on vain suomalaisten tilien kuuntelut) ja siihen lisään tuon kohdan 1.striimit.
+      3. Jaan saadun summan 10:llä ja sitten 100:lla ja saatuun summaan lisää Physical sales ja product downloads kappalemäärät
+      4. Muodostuu lopullinen summa, mikä kertoo että tuleeko kultalevy
+
+      eli: sum = (downloads * 100) + 
+      */
+      /*sum = downloads * 100;
+      sum = sum + streams;
+      sum = sum/10;
+      sum = sum/100;
+      sum = sum + physical;
+      sum = sum + productDownloads;*/
+
+      sum = streams/10;
+      sum = sum/100;
+      sum = sum + physical;
+      sum = sum + productDownloads;
+
+      sum = Math.round(sum);
+
+      // sum = parseInt(streams + (downloads * 100) + physical);
+      $(".total-count").html(sum + " kappaletta");
+
+      if(sum >= 20000) {
+        valid = true;
+        $(".record-type").html("(albumiplatina)");
+      } else if(sum >= 10000) {
+        valid = true;
+        $(".record-type").html("(albumikulta)");
+      } else {
+        valid = false;
+        $(".record-type").html("");
+      }
+
+      $(".submit-button").css({opacity: 1, pointerEvents: 'all'});
+
+      /*
+      if(valid) {
+        $(".submit-button").css({opacity: 1, pointerEvents: 'all'});
+      } else {
+        $(".submit-button").css({opacity: 0.3, pointerEvents: 'none'});
+      }*/
+    }
+  }
+  
+  function submitGoldForm(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    validate();
+  }
+  
+  function validate() {
+    var goldform = $(".gold-form");
+    var inputs = $(goldform).find(".form-control");
+    var formValid = true;
+
+    if(valid == false) {
+      alert("Syötä kulta- tai platinalevyyn oikeuttavat myyntiluvut");
+      return;
+    }
+  
+    /*for(var i = 0; i < inputs.length; i ++) {
+      var input = $(inputs[i]);
+      
+      if(input.val() == "") {
+        formValid = false;
+      }
+    }*/
+
+    if(formValid == false) {
+      alert("Syötä kaikki pakolliset kentät!");
+      return;
+    }
+
+    var confirm = $(".confirm");
+    
+    if(confirm.is(":checked") == false) {
+      alert("Vahvista tiedot ensin oikeiksi!");
+      return;
+    }
+
+    // Run captcha and submit the form
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6Lc5g-IZAAAAAJF44Qw49FevjmjvwcvYB8c_myZt', {action: 'submit'}).then(function(token) {
+        $(".token").val(token);
+        $(".gold-form").submit();
+      });
+    });
+  }
+});
