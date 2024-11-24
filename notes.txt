@@ -1,5 +1,0 @@
-- tallenna kaikki lyriikat omaan lyrics-kansioon ja tutki, miten saat luettua julkaisuvuoden mukaan
-
-- sanojen populariteettianalyysi sanaluokkien mukaan
-
-- kolmen sanan ryhmien analyysiä: katso ryhmiä, joissa sama sana toistuu kolme kertaa -> rytminen elementti
