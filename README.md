@@ -35,3 +35,22 @@ Lopuksi tarkasteltiin kappaleiden pituuden ja sanastollisen monimuotoisuuden keh
 
 ![image](/results/pituus.png)
 ![image](/results/monimuotoisuus.png)
+
+## Mitä opin?
+- Oman aineiston luominen
+  - Web scraping (Requests, BeatifulSoup)
+  - API:n hyödyntäminen (GeniusAPI)
+  - Datalähteiden löytäminen ja päätökset aineiston laajuudesta
+- Natural language processing -perusteita
+  - NLTK (Natural Language Toolkit)
+  - Tokenization
+  - Corpus
+  - Stopwords
+  - Lowercasing
+  - Stemming
+  - Bag-of-words
+  - Kielen tunnistaminen (Langdetect)
+  - Lexical diversity
+  - Ngramit
+- Temaattinen analyysi LDA:n avulla
+  - Hyperparametrien säätäminen
